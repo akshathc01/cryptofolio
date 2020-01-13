@@ -78,10 +78,12 @@ def my_portfolio():
                 pl_coin = Label(pycrypto, text='{0:.2f}'.format(pl_percoin), bg="#F3F4F6", fg="black")
                 pl_coin.grid(row=coin_row, column=5, sticky=N + S + E + W)
 
-                totalpl = Label(pycrypto, text='{0:.2f}'.format(total_pl_coin), bg="#F3F4F6", fg="black")
-                totalpl.grid(row=coin_row, column=6, sticky=N + S + E + W)
+                totalplcoin = Label(pycrypto, text='{0:.2f}'.format(total_pl_coin), bg="#F3F4F6", fg="black")
+                totalplcoin.grid(row=coin_row, column=6, sticky=N + S + E + W)
 
                 coin_row += 1
+            totalpl = Label(pycrypto, text='{0:.2f}'.format(total_pl), bg="#F3F4F6", fg="black")
+            totalpl.grid(row=coin_row, column=6, sticky=N + S + E + W)
 
 
     print('Net profit or loss: {0:.2f}'.format(total_pl))

@@ -41,6 +41,8 @@ def my_portfolio():
 
     coin_row = 1
 
+    total_current_value = 0
+
     for x in range(0,10):
         for coin in coins:
             if coin['symbol'] == api[x]['symbol']:
@@ -49,6 +51,7 @@ def my_portfolio():
                 pl_percoin = float(api[x]['price_usd']) - coin['price_per_coin']
                 total_pl_coin = pl_percoin * coin['amount_owned']
                 total_pl += total_pl_coin
+                total_current_value += current_value
 
                 print(api[x]['name'] + ' - ' + api[x]['symbol'])
                 print("Price: {0:.2f}".format(float(api[x]['price_usd'])))
@@ -82,6 +85,8 @@ def my_portfolio():
                 totalplcoin.grid(row=coin_row, column=6, sticky=N + S + E + W)
 
                 coin_row += 1
+            totalcv = Label(pycrypto, text='{0:.2f}'.format(total_current_value), bg="#F3F4F6", fg="black")
+            totalcv.grid(row=coin_row, column=4, sticky=N + S + E + W)
             totalpl = Label(pycrypto, text='{0:.2f}'.format(total_pl), bg="#F3F4F6", fg="black")
             totalpl.grid(row=coin_row, column=6, sticky=N + S + E + W)
 

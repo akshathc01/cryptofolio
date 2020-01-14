@@ -26,11 +26,7 @@ cursorObj = con.cursor()
 # con.commit()
 
 
-def font_color(amount):
-    if amount > 0:
-        return "green"
-    else:
-        return 'red'
+
 
 
 def my_portfolio():
@@ -38,6 +34,12 @@ def my_portfolio():
     api_request = requests.get('https://api.coinmarketcap.com/v1/ticker/')
 
     api = json.loads(api_request.content)
+
+    def font_color(amount):
+        if amount > 0:
+            return "green"
+        else:
+            return 'red'
 
 
     # coins = [
@@ -77,6 +79,8 @@ def my_portfolio():
 
     total_current_value = 0
 
+    total_amount_paid = 0
+
     for x in range(0,10):
         for coin in coins:
             if coin[1] == api[x]['symbol']:
@@ -86,6 +90,7 @@ def my_portfolio():
                 total_pl_coin = pl_percoin * coin[2]
                 total_pl += total_pl_coin
                 total_current_value += current_value
+                total_amount_paid += total_paid
 
                 name = Label(pycrypto, text=api[x]['name'], bg="#F3F4F6", fg="black")
                 name.grid(row=coin_row, column=0, sticky=N + S + E + W)
@@ -109,6 +114,9 @@ def my_portfolio():
                 totalplcoin.grid(row=coin_row, column=6, sticky=N + S + E + W)
 
                 coin_row += 1
+            totalamountpaid = Label(pycrypto, text='{0:.2f}'.format(total_amount_paid), bg="#F3F4F6", fg="black")
+            totalamountpaid.grid(row=coin_row, column=3, sticky=N + S + E + W)
+
             totalcv = Label(pycrypto, text='{0:.2f}'.format(total_current_value), bg="#F3F4F6", fg="black")
             totalcv.grid(row=coin_row, column=4, sticky=N + S + E + W)
 
@@ -125,26 +133,29 @@ def my_portfolio():
     print('Net profit or loss: {0:.2f}'.format(total_pl))
 
 
-name = Label(pycrypto, text='Coin name', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-name.grid(row=0, column=0, sticky=N + S + E + W)
+def app_header():
 
-price = Label(pycrypto, text='Price', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-price.grid(row=0, column=1, sticky=N + S + E + W)
 
-no_coins = Label(pycrypto, text='Coins Owned', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-no_coins.grid(row=0, column=2, sticky=N + S + E + W)
+    name = Label(pycrypto, text='Coin name', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    name.grid(row=0, column=0, sticky=N + S + E + W)
 
-amount_paid = Label(pycrypto, text='Total Amount Paid', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-amount_paid.grid(row=0, column=3, sticky=N + S + E + W)
+    price = Label(pycrypto, text='Price', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    price.grid(row=0, column=1, sticky=N + S + E + W)
 
-current_val = Label(pycrypto, text='Current Value', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-current_val.grid(row=0, column=4, sticky=N + S + E + W)
+    no_coins = Label(pycrypto, text='Coins Owned', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    no_coins.grid(row=0, column=2, sticky=N + S + E + W)
 
-pl_coin = Label(pycrypto, text='P/L Per Coin', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-pl_coin.grid(row=0, column=5, sticky=N + S + E + W)
+    amount_paid = Label(pycrypto, text='Total Amount Paid', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    amount_paid.grid(row=0, column=3, sticky=N + S + E + W)
 
-totalpl = Label(pycrypto, text='Total P/L With Coin', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
-totalpl.grid(row=0, column=6, sticky=N + S + E + W)
+    current_val = Label(pycrypto, text='Current Value', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    current_val.grid(row=0, column=4, sticky=N + S + E + W)
+
+    pl_coin = Label(pycrypto, text='P/L Per Coin', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    pl_coin.grid(row=0, column=5, sticky=N + S + E + W)
+
+    totalpl = Label(pycrypto, text='Total P/L With Coin', bg="#142E54", fg="white", font='Lato 12 bold', padx='5', pady='5', borderwidth=2, relief='groove')
+    totalpl.grid(row=0, column=6, sticky=N + S + E + W)
 
 my_portfolio()
 
